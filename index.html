@@ -109,7 +109,7 @@
         </div>
         <h1 id="question-text">Benim Sevgilim Olur Musun? ❤️</h1>
         <div class="buttons">
-            <button class="btn btn-yes" onclick="sheSaidYes()">EVET! 😍</button>
+            <button class="btn btn-yes" onclick="sheSaidYes()" ontouchstart="sheSaidYes()">EVET! 😍</button>
             <button class="btn btn-no" id="noBtn" onmouseover="moveButton(event)" onclick="moveButton(event)" ontouchstart="moveButton(event)">Hayır :(</button>
         </div>
     </div>
@@ -119,12 +119,12 @@
             <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Muck! 😘">
         </div>
         <h1>YUPPİİİ! 🎉💖</h1>
-        <p style="font-size: 1.3rem; color: #d81b60;">Seni Çok Seviyorum! En güzel günler bizi bekliyor!</p>
+        <p style="font-size: 1.3rem; color: #d81b60;">Seni Çok Seviyorum! bitanemm!</p>
     </div>
 
     <script>
-        // Senin yeni ve çalışan Discord Webhook Linkin
-        const webhookUrl = "https://discord.com/api/webhooks/1474834078757949623/zLgtyqYtqb5Vc_haXmck1wyF7d3iFgKET1y2mDJFVRCL-QQf7B7t0_qDzxcSZKy3IhY3"; 
+    
+        const webhookUrl = "https://discord.com/api/webhooks/1474833471963791512/cYlSljt7stnvPYipPkcS3SXyD_lvme4l5dZTb6tlBil5U4rrYeOkVsKJI2mQQWVt9l4d"; 
 
         let noCount = 0;
         const noBtn = document.getElementById('noBtn');
@@ -177,7 +177,7 @@
         }
 
         function sheSaidYes() {
-            // 1. Ekranları değiştir ve konfetileri patlat
+           
             document.getElementById('question-screen').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             
@@ -190,19 +190,21 @@
                 document.body.appendChild(confetti);
             }
 
-            // 2. DISCORD'A BİLDİRİM GÖNDERME KISMI
-            let mesaj = "";
-            if (noCount === 0) {
-                mesaj = "🚨 **YENGE DİREKT EVET DEDİ!** Hiç 'Hayır' butonuna basmadı. Gerçek aşk bu! 💖";
-            } else {
-                mesaj = `🎉 **YENGE EVET DEDİ!** Ama öncesinde tam **${noCount} kere** 'Hayır' butonundan kaçmaya çalıştı. Biraz naz yaptı 😂`;
-            }
+            
+            if (webhookUrl !== "BURAYA_DISCORD_WEBHOOK_LINKIN_GELECEK") {
+                let mesaj = "";
+                if (noCount === 0) {
+                    mesaj = "🚨 **YENGE DİREKT EVET DEDİ!** Hiç 'Hayır' butonuna basmadı. Gerçek aşk bu! 💖";
+                } else {
+                    mesaj = `🎉 **YENGE EVET DEDİ!** Ama öncesinde tam **${noCount} kere** 'Hayır' butonundan kaçmaya çalıştı. Biraz naz yaptı 😂`;
+                }
 
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: mesaj })
-            }).catch(err => console.error("Discord bildirim hatası:", err));
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: mesaj })
+                }).catch(err => console.error("Discord bildirim hatası:", err));
+            }
         }
     </script>
 </body>
