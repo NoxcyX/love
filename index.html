@@ -123,7 +123,8 @@
     </div>
 
     <script>
-        const webhookUrl = "https://discord.com/api/webhooks/1474830357802254560/4pcAa5eCt7118cD64qiOU1l2bHMXFGoueRV8o4O-pOKL0BpRq4zGCv_k4oaQiL_omZqM"; 
+    
+        const webhookUrl = "https://discord.com/api/webhooks/1474833471963791512/cYlSljt7stnvPYipPkcS3SXyD_lvme4l5dZTb6tlBil5U4rrYeOkVsKJI2mQQWVt9l4d"; 
 
         let noCount = 0;
         const noBtn = document.getElementById('noBtn');
@@ -176,6 +177,7 @@
         }
 
         function sheSaidYes() {
+           
             document.getElementById('question-screen').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             
@@ -188,7 +190,8 @@
                 document.body.appendChild(confetti);
             }
 
-            if (webhookUrl !== "https://discord.com/api/webhooks/1474830357802254560/4pcAa5eCt7118cD64qiOU1l2bHMXFGoueRV8o4O-pOKL0BpRq4zGCv_k4oaQiL_omZqM") {
+            
+            if (webhookUrl !== "BURAYA_DISCORD_WEBHOOK_LINKIN_GELECEK") {
                 let mesaj = "";
                 if (noCount === 0) {
                     mesaj = "🚨 **YENGE DİREKT EVET DEDİ!** Hiç 'Hayır' butonuna basmadı. Gerçek aşk bu! 💖";
