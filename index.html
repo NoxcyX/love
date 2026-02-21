@@ -98,6 +98,7 @@
             background-color: #ffd700;
             animation: celebrate 3s linear infinite;
             z-index: 9999;
+            pointer-events: none; 
         }
     </style>
 </head>
@@ -119,14 +120,14 @@
             <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Muck! 😘">
         </div>
         <h1>YUPPİİİ! 🎉💖</h1>
-        <p style="font-size: 1.3rem; color: #d81b60;">Seni Çok Seviyorum! bitanemm!</p>
+        <p style="font-size: 1.3rem; color: #d81b60;">Seni Çok Seviyorum! Birtanemm ❤️!</p>
     </div>
 
     <script>
-    
-        const webhookUrl = "https://discord.com/api/webhooks/1474833471963791512/cYlSljt7stnvPYipPkcS3SXyD_lvme4l5dZTb6tlBil5U4rrYeOkVsKJI2mQQWVt9l4d"; 
+        const webhookUrl = "https://discord.com/api/webhooks/1474834078757949623/zLgtyqYtqb5Vc_haXmck1wyF7d3iFgKET1y2mDJFVRCL-QQf7B7t0_qDzxcSZKy3IhY3"; 
 
         let noCount = 0;
+        let isYesClicked = false; 
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.querySelector('.btn-yes');
         const questionText = document.getElementById('question-text');
@@ -139,7 +140,7 @@
         ];
 
         function moveButton(e) {
-            if(e) e.preventDefault(); 
+            if(e && e.type === 'touchstart') e.preventDefault(); 
             noCount++;
             
             const newScale = 1 + (noCount * 0.3);
@@ -173,37 +174,41 @@
                 yesBtn.style.left = '50%';
                 yesBtn.style.transform = 'translate(-50%, -50%) scale(2.5)';
                 yesBtn.onclick = sheSaidYes;
+                yesBtn.ontouchstart = sheSaidYes;
             }
         }
 
-        function sheSaidYes() {
-           
+        function sheSaidYes(e) {
+            if (isYesClicked) return; 
+            isYesClicked = true;
+
+            
+            let mesaj = "";
+            if (noCount === 0) {
+                mesaj = "🚨 **YENGE DİREKT EVET DEDİ!** Hiç 'Hayır' butonuna basmadı. Gerçek aşk bu! 💖";
+            } else {
+                mesaj = `🎉 **YENGE EVET DEDİ!** Ama öncesinde tam **${noCount} kere** 'Hayır' butonundan kaçmaya çalıştı. Biraz naz yaptı 😂`;
+            }
+
+            
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: mesaj })
+            }).catch(err => console.error("Discord hatası:", err));
+
+          
             document.getElementById('question-screen').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             
-            for(let i=0; i<100; i++) {
+            
+            for(let i=0; i<80; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
                 document.body.appendChild(confetti);
-            }
-
-            
-            if (webhookUrl !== "BURAYA_DISCORD_WEBHOOK_LINKIN_GELECEK") {
-                let mesaj = "";
-                if (noCount === 0) {
-                    mesaj = "🚨 **YENGE DİREKT EVET DEDİ!** Hiç 'Hayır' butonuna basmadı. Gerçek aşk bu! 💖";
-                } else {
-                    mesaj = `🎉 **YENGE EVET DEDİ!** Ama öncesinde tam **${noCount} kere** 'Hayır' butonundan kaçmaya çalıştı. Biraz naz yaptı 😂`;
-                }
-
-                fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content: mesaj })
-                }).catch(err => console.error("Discord bildirim hatası:", err));
             }
         }
     </script>
